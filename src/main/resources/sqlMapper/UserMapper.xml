@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.peaktop.Model.Mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="top.peaktop.Model.User">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="account" jdbcType="CHAR" property="account"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="sex" jdbcType="BIT" property="sex"/>
+        <result column="telephone" jdbcType="CHAR" property="telephone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="signature" jdbcType="VARCHAR" property="signature"/>
+        <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait"/>
+        <result column="permission" jdbcType="INTEGER" property="permission"/>
+        <result column="is_authentication" jdbcType="BIT" property="isAuthentication"/>
+        <result column="is_online" jdbcType="BIT" property="isOnline"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="login_count" jdbcType="BIGINT" property="loginCount"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <result column="is_deleted" jdbcType="BIT" property="isDeleted"/>
+        <result column="is_blocked" jdbcType="BIT" property="isBlocked"/>
+        <result column="validate_code" jdbcType="VARCHAR" property="validateCode"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, account, password, nickname, sex, telephone, email, signature, head_portrait,
+        permission, is_authentication, is_online, login_time, login_count, gmt_create, gmt_modified,
+        is_deleted, is_blocked, validate_code
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from user
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="top.peaktop.Model.User">
+        insert into user (id, account, password,
+        nickname, sex, telephone,
+        email, signature, head_portrait,
+        permission, is_authentication, is_online,
+        login_time, login_count, gmt_create,
+        gmt_modified, is_deleted, is_blocked,
+        validate_code)
+        values (#{id,jdbcType=BIGINT}, #{account,jdbcType=CHAR}, #{password,jdbcType=VARCHAR},
+        #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{telephone,jdbcType=CHAR},
+        #{email,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{headPortrait,jdbcType=VARCHAR},
+        #{permission,jdbcType=INTEGER}, #{isAuthentication,jdbcType=BIT}, #{isOnline,jdbcType=BIT},
+        #{loginTime,jdbcType=TIMESTAMP}, #{loginCount,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP},
+        #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT}, #{isBlocked,jdbcType=BIT},
+        #{validateCode,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="top.peaktop.Model.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="account != null">
+                account,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="signature != null">
+                signature,
+            </if>
+            <if test="headPortrait != null">
+                head_portrait,
+            </if>
+            <if test="permission != null">
+                permission,
+            </if>
+            <if test="isAuthentication != null">
+                is_authentication,
+            </if>
+            <if test="isOnline != null">
+                is_online,
+            </if>
+            <if test="loginTime != null">
+                login_time,
+            </if>
+            <if test="loginCount != null">
+                login_count,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="isBlocked != null">
+                is_blocked,
+            </if>
+            <if test="validateCode != null">
+                validate_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=BIT},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="signature != null">
+                #{signature,jdbcType=VARCHAR},
+            </if>
+            <if test="headPortrait != null">
+                #{headPortrait,jdbcType=VARCHAR},
+            </if>
+            <if test="permission != null">
+                #{permission,jdbcType=INTEGER},
+            </if>
+            <if test="isAuthentication != null">
+                #{isAuthentication,jdbcType=BIT},
+            </if>
+            <if test="isOnline != null">
+                #{isOnline,jdbcType=BIT},
+            </if>
+            <if test="loginTime != null">
+                #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginCount != null">
+                #{loginCount,jdbcType=BIGINT},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="isBlocked != null">
+                #{isBlocked,jdbcType=BIT},
+            </if>
+            <if test="validateCode != null">
+                #{validateCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="top.peaktop.Model.User">
+        update user
+        <set>
+            <if test="account != null">
+                account = #{account,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=BIT},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="signature != null">
+                signature = #{signature,jdbcType=VARCHAR},
+            </if>
+            <if test="headPortrait != null">
+                head_portrait = #{headPortrait,jdbcType=VARCHAR},
+            </if>
+            <if test="permission != null">
+                permission = #{permission,jdbcType=INTEGER},
+            </if>
+            <if test="isAuthentication != null">
+                is_authentication = #{isAuthentication,jdbcType=BIT},
+            </if>
+            <if test="isOnline != null">
+                is_online = #{isOnline,jdbcType=BIT},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginCount != null">
+                login_count = #{loginCount,jdbcType=BIGINT},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="isBlocked != null">
+                is_blocked = #{isBlocked,jdbcType=BIT},
+            </if>
+            <if test="validateCode != null">
+                validate_code = #{validateCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="top.peaktop.Model.User">
+    update user
+    set account = #{account,jdbcType=CHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=BIT},
+      telephone = #{telephone,jdbcType=CHAR},
+      email = #{email,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
+      head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      permission = #{permission,jdbcType=INTEGER},
+      is_authentication = #{isAuthentication,jdbcType=BIT},
+      is_online = #{isOnline,jdbcType=BIT},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      login_count = #{loginCount,jdbcType=BIGINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      is_blocked = #{isBlocked,jdbcType=BIT},
+      validate_code = #{validateCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <!--通过账号查找用户id-->
+    <select id="getIdByAccount" resultType="long">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where account = #{account}
+    </select>
+
+    <!--通过账号查找用户对象-->
+    <select id="selectByAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where account = #{account}
+    </select>
+
+    <!--用户登录检查-->
+    <select id="userLoginCheck" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        WHERE user.account = #{account} AND user.password = #{password}
+    </select>
+</mapper>

@@ -1,0 +1,50 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--通过配置文件读取SQL连接属性-->
+    <context:property-placeholder location="classpath:Properties/jdbc.properties"/>
+    <!--spring jdbc事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--mybatis Sql工厂-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--指定mybatis配置文件路径-->
+        <property name="configLocation" value="classpath:mybatis/mybatisConfig.xml"/>
+        <!--配置所有的Mapper文件-->
+        <property name="mapperLocations" value="classpath:sqlMapper/*.xml"/>
+    </bean>
+    <!--使用Spring进行sqlSession的管理,是线程安全的-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+    <!--配置mybatis的Mapper接口自动扫描-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="top.peaktop.Model.Mapper"/>
+    </bean>
+
+    <!--开发环境配置-->
+    <beans profile="dev">
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+              p:driverClassName="${dev_driverClassName}"
+              p:url="${dev_url}" p:username="${dev_userName}"
+              p:password="${dev_passWord}"
+              p:initialSize="${dev_initialSize}"
+              p:maxActive="${dev_maxActive}"
+        />
+    </beans>
+    <!--线上环境配置-->
+    <beans profile="prod">
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+              p:driverClassName="${prod_driverClassName}"
+              p:url="${prod_url}" p:username="${prod_userName}"
+              p:password="${prod_passWord}"
+              p:initialSize="${prod_initialSize}"
+              p:maxActive="${prod_maxActive}"
+        />
+    </beans>
+</beans>
